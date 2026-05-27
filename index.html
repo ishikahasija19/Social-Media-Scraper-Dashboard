@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passport Social Intelligence Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Dashboard filters">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">P</div>
+          <div>
+            <p class="eyebrow">Social Intelligence</p>
+            <h1>Passport Watch</h1>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="panel-title">
+            <i data-lucide="sliders-horizontal"></i>
+            <h2>Filters</h2>
+          </div>
+
+          <label>
+            Search
+            <div class="input-icon">
+              <i data-lucide="search"></i>
+              <input id="searchInput" type="search" placeholder="Search posts, creators, translations" />
+            </div>
+          </label>
+
+          <label>
+            Platform
+            <select id="platformFilter"></select>
+          </label>
+
+          <label>
+            Region
+            <select id="regionFilter"></select>
+          </label>
+
+          <label>
+            Language
+            <select id="languageFilter"></select>
+          </label>
+
+          <label>
+            Category
+            <select id="categoryFilter"></select>
+          </label>
+
+          <label>
+            Sentiment
+            <select id="sentimentFilter"></select>
+          </label>
+
+          <label>
+            Sort by
+            <select id="sortSelect">
+              <option value="time">Newest first</option>
+              <option value="engagement">Highest engagement</option>
+              <option value="sentiment">Sentiment intensity</option>
+              <option value="cluster">Largest cluster</option>
+            </select>
+          </label>
+
+          <button id="resetFilters" class="ghost-button" type="button">
+            <i data-lucide="rotate-ccw"></i>
+            Reset filters
+          </button>
+        </section>
+
+        <section class="panel compact">
+          <div class="panel-title">
+            <i data-lucide="languages"></i>
+            <h2>Translate</h2>
+          </div>
+          <select id="globalLanguage">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Punjabi">Punjabi</option>
+            <option value="Spanish">Spanish</option>
+            <option value="French">French</option>
+            <option value="German">German</option>
+            <option value="Arabic">Arabic</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Russian">Russian</option>
+            <option value="Japanese">Japanese</option>
+          </select>
+        </section>
+      </aside>
+
+      <section class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Last 24 hours across major platforms</p>
+            <h2>Passport-related social posts</h2>
+          </div>
+          <div class="topbar-actions">
+            <button id="refreshButton" type="button">
+              <i data-lucide="refresh-cw"></i>
+              Refresh
+            </button>
+            <button id="exportCsv" type="button">
+              <i data-lucide="file-spreadsheet"></i>
+              CSV
+            </button>
+            <button id="exportPdf" type="button">
+              <i data-lucide="file-text"></i>
+              PDF
+            </button>
+          </div>
+        </header>
+
+        <section class="metrics" aria-label="Summary metrics">
+          <article>
+            <span id="metricPosts">0</span>
+            <p>Clean posts</p>
+          </article>
+          <article>
+            <span id="metricClusters">0</span>
+            <p>Topic clusters</p>
+          </article>
+          <article>
+            <span id="metricEngagement">0</span>
+            <p>Total engagement</p>
+          </article>
+          <article>
+            <span id="metricSpam">0</span>
+            <p>Spam removed</p>
+          </article>
+        </section>
+
+        <section class="insight-grid">
+          <div class="chart-panel">
+            <div class="panel-heading">
+              <h3>Category mix</h3>
+              <span id="updatedAt"></span>
+            </div>
+            <canvas id="categoryChart" height="130"></canvas>
+          </div>
+          <div class="chart-panel">
+            <div class="panel-heading">
+              <h3>Platform activity</h3>
+              <span>Filtered view</span>
+            </div>
+            <canvas id="platformChart" height="130"></canvas>
+          </div>
+        </section>
+
+        <section class="results-header">
+          <div>
+            <h3>Clustered posts</h3>
+            <p id="resultCount">Showing 0 topics</p>
+          </div>
+          <div class="status-pill" id="pipelineStatus">
+            <i data-lucide="sparkles"></i>
+            NLP processed
+          </div>
+        </section>
+
+        <section id="postGrid" class="post-grid" aria-live="polite"></section>
+      </section>
+    </main>
+
+    <template id="postCardTemplate">
+      <article class="post-card">
+        <div class="card-topline">
+          <div class="platform-badge"></div>
+          <time></time>
+        </div>
+        <div class="creator-row">
+          <strong></strong>
+          <span></span>
+        </div>
+        <h4></h4>
+        <p class="summary"></p>
+        <p class="translated hidden"></p>
+        <div class="meta-row"></div>
+        <div class="cluster-row"></div>
+        <div class="card-actions">
+          <button class="translate-button" type="button">
+            <i data-lucide="languages"></i>
+            Translate
+          </button>
+          <button class="source-button" type="button">
+            <i data-lucide="external-link"></i>
+            Source
+          </button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
