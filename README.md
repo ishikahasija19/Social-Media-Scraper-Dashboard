@@ -44,10 +44,10 @@ You can also open `index.html` directly in a browser, but running the local serv
 
 ```text
 .
-├── app.js       # Dashboard data, filtering, NLP-style processing, charts, export logic
-├── index.html   # Dashboard markup
-├── server.mjs   # Tiny local static server
-└── styles.css   # Responsive dashboard styling
+|-- app.js       # Dashboard data, filtering, NLP-style processing, charts, export logic
+|-- index.html   # Dashboard markup
+|-- server.mjs   # Tiny local static server
+`-- styles.css   # Responsive dashboard styling
 ```
 
 ## Notes on Real Scraping
